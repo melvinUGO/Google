@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import ReactPlayer from "react-player";
 import { useResultContext } from "../context/ResultContextProvider";
 import Loading from "./Loading";
 
@@ -9,14 +8,8 @@ const Results = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (searchTerm) {
-      if (location.pathname == "/videos") {
-        getResult(`/search?q=${searchTerm} videos`);
-      } else {
-        getResult(`${location.pathname}?query=${searchTerm}`);
-      }
-    }
-  }, [searchTerm, location.pathname]);
+    getResult(`${location.pathname}?query=${searchTerm}&num=10`);
+  }, [searchTerm, location.pathname, getResult]);
 
   if (isLoading) {
     return <Loading />;
@@ -69,7 +62,22 @@ const Results = () => {
       );
       break;
     case "/news":
-      return "news";
+      return (
+        <div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center">
+          {results?.items?.map(({ link, title }, index) => (
+            <div key={index} className="md:w-2/5 w-full">
+              <a href={link} target="_blank" rel="noreferrer">
+                <p className="text-sm">
+                  {link.length > 30 ? link.substring(0, 30) : link}
+                </p>
+                <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">
+                  {title}
+                </p>
+              </a>
+            </div>
+          ))}
+        </div>
+      );
       break;
     case "/videos":
       return "videos";
