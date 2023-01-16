@@ -2,8 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const link = [
-  { url: "/search", text: "🔎 All" },
-  { url: "/imagesearch", text: "🖼️ Images" },
+  { url: "/WebSearchAPI", text: "🔎 All" },
+  { url: "/ImageSearchAPI", text: "🖼️ Images" },
+  { url: "/NewsSearchAPI", text: "📰 News" },
 ];
 
 const Links = () => {
